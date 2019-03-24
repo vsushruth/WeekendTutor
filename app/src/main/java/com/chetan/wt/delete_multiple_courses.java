@@ -24,11 +24,13 @@ import java.util.ArrayList;
 
 public class delete_multiple_courses extends AppCompatActivity {
 
-    DatabaseReference reff, notify, temp;
+    DatabaseReference reff, notify, temp, users;
+    int stu_wallet, tutor_wallet;
     TutorNotification notification = new TutorNotification();
     Course course;
     ArrayList<String> key, tutorId, course_name, course_date;
     String StudentID,cid, tid;
+    ArrayList<Integer> price;
     private FirebaseAuth SID;
 
     @Override
@@ -40,6 +42,7 @@ public class delete_multiple_courses extends AppCompatActivity {
         tutorId = new ArrayList<String>();
         course_name = new ArrayList<String>();
         course_date = new ArrayList<String>();
+        price = new ArrayList<>();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         StudentID = user.getUid();
@@ -50,6 +53,7 @@ public class delete_multiple_courses extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("name").getValue()!=null)
                 notification.setStudent_name(dataSnapshot.child("name").getValue().toString()+" unregistered for ");
+                stu_wallet = Integer.parseInt(dataSnapshot.child("wallet").getValue().toString());
             }
 
             @Override
@@ -77,6 +81,7 @@ public class delete_multiple_courses extends AppCompatActivity {
                     course_name.add(course.getName());
                     course_date.add(course.getDate());
                     tutorId.add(course.getTId());
+                    price.add(course.getPrice());
                     myArrayList.add("\n" + course.getName() + "\n");
                  //   total_stu.add(course.getNo_of_students());
 
@@ -114,6 +119,10 @@ public class delete_multiple_courses extends AppCompatActivity {
         });
 
 
+        users = FirebaseDatabase.getInstance().getReference("users");
+
+
+
 
         View.OnClickListener listenerDel = new View.OnClickListener() {
             @Override
@@ -132,6 +141,22 @@ public class delete_multiple_courses extends AppCompatActivity {
                                 myArrayAdapter.remove(myArrayList.get(i));
                                 cid = key.get(i);
                                 tid = tutorId.get(i);
+
+
+
+
+                                users.child(tid).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        tutor_wallet = Integer.parseInt(dataSnapshot.child("wallet").getValue().toString());
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
                                 notification.setCourse_name(course_name.get(i) + " which is on ");
                                 notification.setDate(course_date.get(i));
                                 final DatabaseReference tut = FirebaseDatabase.getInstance().getReference("Tutor Courses").child(cid);
@@ -141,10 +166,11 @@ public class delete_multiple_courses extends AppCompatActivity {
                                 del.setValue(null);
                                 int n = total_stu.get(i)-1;
                                 tut.child("no_of_students").setValue(n);
-
-
+                                users.child(tid).child("wallet").setValue(tutor_wallet-price.get(i)+10);
+                                stu_wallet+=price.get(i)-10;
                             }
                         }
+                        temp.child(StudentID).child("wallet").setValue(stu_wallet);
                         Toast.makeText(getApplicationContext(),"Deleted Succesfully",Toast.LENGTH_SHORT).show();
                         checkedItemPositions.clear();
                         myArrayAdapter.notifyDataSetChanged();

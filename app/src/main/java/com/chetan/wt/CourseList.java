@@ -406,7 +406,9 @@ public class CourseList extends AppCompatActivity implements NavigationView.OnNa
             intent = new Intent(getApplicationContext(),developers.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.wallet) {
+            intent = new Intent(getApplicationContext(),StudentWallet.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_send) {
 

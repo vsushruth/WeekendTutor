@@ -25,8 +25,9 @@ public class CourseDetails extends AppCompatActivity {
     String cid, tid;
     Intent in;
     String sid;
+    int student_wallet,tutor_wallet,price;
 
-    DatabaseReference reff, notify, temp;
+    DatabaseReference reff, notify, temp, tutor;
     TutorNotification notification = new TutorNotification();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class CourseDetails extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child("name").getValue()!=null)
                 notification.setStudent_name(dataSnapshot.child("name").getValue().toString()+" unregistered for ");
+                student_wallet = Integer.parseInt(dataSnapshot.child("wallet").getValue().toString());
             }
 
             @Override
@@ -85,6 +87,7 @@ public class CourseDetails extends AppCompatActivity {
                     duration.setText(dataSnapshot.child("duration").getValue().toString());
                     venue.setText(dataSnapshot.child("venue").getValue().toString());
                     tid = dataSnapshot.child("tid").getValue().toString();
+                    price = Integer.parseInt(dataSnapshot.child("price").getValue().toString());
                   //  count[0] = Integer.parseInt(dataSnapshot.child("no_of_students").getValue().toString());
 
                 }
@@ -113,6 +116,20 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
+        tutor = FirebaseDatabase.getInstance().getReference("users").child(tid);
+        tutor.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tutor_wallet = Integer.parseInt(dataSnapshot.child("wallet").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         final DatabaseReference tut = FirebaseDatabase.getInstance().getReference("Tutor Courses").child(cid);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,9 +142,15 @@ public class CourseDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         notify = FirebaseDatabase.getInstance().getReference("Tutor Notifications").child(tid);
                         notify.push().setValue(notification);
+
                         DatabaseReference del = FirebaseDatabase.getInstance().getReference("Student Courses").child(sid).child(cid);
                      //  count[0]--;
                         tut.child("no_of_students").setValue(count[0]);
+                        //DatabaseReference tu_wallet = FirebaseDatabase.getInstance().getReference("users").child(tid);
+                        int t1=tutor_wallet-price+10;
+                        tutor.child("wallet").setValue(t1);
+                        int t2= student_wallet+price-10;
+                        temp.child(sid).child("wallet").setValue(t2);
                         del.setValue(null);
                         Toast.makeText(getApplicationContext(),"Deleted Succesfully",Toast.LENGTH_SHORT).show();
                         Intent in =new Intent(getApplicationContext(),CourseList.class);
