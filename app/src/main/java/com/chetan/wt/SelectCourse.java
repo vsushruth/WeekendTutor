@@ -1,6 +1,9 @@
 package com.chetan.wt;
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +43,8 @@ public class SelectCourse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selectcourse);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.startblue1)));
+        setTitle("Course Registration");
 
         final TextView tutor = (TextView)findViewById(R.id.TNAME);
         final TextView course = (TextView)findViewById(R.id.CNAME);
@@ -54,6 +59,7 @@ public class SelectCourse extends AppCompatActivity {
         sid = user.getUid();
         final int[] n = new int[1];
         final ArrayList<String> list = new ArrayList<>();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -120,7 +126,7 @@ public class SelectCourse extends AppCompatActivity {
         });
 
         ImageView imageView = (ImageView)findViewById(R.id.imageView2);
-        imageView.setImageResource(R.drawable.tutor2);
+        imageView.setImageResource(R.drawable.loading);
 
 
         Button button = (Button)findViewById(R.id.button5);
