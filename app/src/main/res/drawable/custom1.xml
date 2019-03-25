@@ -5,11 +5,19 @@
     android:shape="rectangle" >
 
     <solid
-        android:color="@color/common_google_signin_btn_text_dark_default" >
+        android:color="#ffff8800" >
     </solid>
 
     <corners
-        android:radius="20dp"   >
+        android:radius="2dp"   >
+    </corners>
+
+    <stroke
+        android:color="#1c1b20" >
+    </stroke>
+
+    <corners
+        android:radius="10dp"   >
     </corners>
 
     <padding
