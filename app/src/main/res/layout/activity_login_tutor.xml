@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:background="@drawable/login_page_tutor"
     tools:context=".loginTutor">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="130dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="150dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
             android:layout_marginTop="50dp"
             android:ems="10"
             android:hint="E-MAIL"
             android:inputType="textEmailAddress"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             app:layout_column="0"
             app:layout_row="1" />
 
@@ -40,8 +39,9 @@
             android:ems="10"
             android:hint="PASSWORD"
             android:inputType="textPassword"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textStyle="normal"
             app:layout_column="0"
             app:layout_row="2" />
 
@@ -84,8 +84,6 @@
             android:textSize="18sp"
             app:layout_column="0"
             app:layout_row="8" />
-
-
 
     </LinearLayout>
 

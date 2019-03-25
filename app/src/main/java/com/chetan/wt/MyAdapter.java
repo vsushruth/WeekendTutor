@@ -57,6 +57,7 @@ public class MyAdapter extends ArrayAdapter<String>
         TextView date = (TextView) view.findViewById(R.id.class_date);
         TextView time_duration = (TextView) view.findViewById(R.id.time_duration);
         final ImageView imageView = (ImageView) view.findViewById(R.id.tutorImage);
+        imageView.setImageResource(R.drawable.loading);
 
         tutorName.setText(tutorList.get(position));
         courseName.setText(courseList.get(position));

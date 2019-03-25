@@ -1,6 +1,7 @@
 package com.chetan.wt;
 
 import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ public class ChangeAuthInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.startblue1)));
+
         setContentView(R.layout.activity_change_auth_info);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
