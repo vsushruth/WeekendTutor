@@ -148,7 +148,7 @@ public class SelectCourse extends AppCompatActivity {
         });
 
         ImageView imageView = (ImageView)findViewById(R.id.imageView2);
-        imageView.setImageResource(R.drawable.loading);
+        //imageView.setImageResource(R.drawable.loading);
 
 
         Button button = (Button)findViewById(R.id.button5);
