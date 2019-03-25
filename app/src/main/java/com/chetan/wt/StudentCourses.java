@@ -1,6 +1,7 @@
 package com.chetan.wt;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,9 @@ public class StudentCourses extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_courses);
+        setTitle("My Courses");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.startblue1)));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         key = new ArrayList<String>();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -85,13 +89,13 @@ public class StudentCourses extends AppCompatActivity {
             }
         });
 
-        Button back = findViewById(R.id.back);
+        /*Button back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
     }
 
 }
