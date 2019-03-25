@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -70,7 +69,6 @@ public class CourseDetails extends AppCompatActivity {
         });
 
 
-        final DatabaseReference tu_ref = FirebaseDatabase.getInstance().getReference("Tutor Courses").child(cid);
 
         reff = FirebaseDatabase.getInstance().getReference("Student Courses").child(sid).child(cid);
         reff.addValueEventListener(new ValueEventListener() {
@@ -86,9 +84,22 @@ public class CourseDetails extends AppCompatActivity {
                     time.setText(dataSnapshot.child("start").getValue().toString());
                     duration.setText(dataSnapshot.child("duration").getValue().toString());
                     venue.setText(dataSnapshot.child("venue").getValue().toString());
-                    tid = dataSnapshot.child("tid").getValue().toString();
-                    price = Integer.parseInt(dataSnapshot.child("price").getValue().toString());
+                    tid=dataSnapshot.child("tid").getValue().toString();
                   //  count[0] = Integer.parseInt(dataSnapshot.child("no_of_students").getValue().toString());
+                    price = Integer.parseInt(dataSnapshot.child("price").getValue().toString());
+
+                    tutor = FirebaseDatabase.getInstance().getReference("users").child(tid);
+                    tutor.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            tutor_wallet = Integer.parseInt(dataSnapshot.child("wallet").getValue().toString());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                 }
                 else
@@ -101,6 +112,8 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
         delete = (Button)findViewById(R.id.delete);
+
+        final DatabaseReference tu_ref = FirebaseDatabase.getInstance().getReference("Tutor Courses").child(cid);
         tu_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -116,18 +129,8 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
-        tutor = FirebaseDatabase.getInstance().getReference("users").child(tid);
-        tutor.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tutor_wallet = Integer.parseInt(dataSnapshot.child("wallet").getValue().toString());
-            }
+       Toast.makeText(getApplicationContext(),Integer.toString(price),Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
         final DatabaseReference tut = FirebaseDatabase.getInstance().getReference("Tutor Courses").child(cid);

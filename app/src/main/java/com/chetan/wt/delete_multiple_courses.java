@@ -25,11 +25,11 @@ import java.util.ArrayList;
 public class delete_multiple_courses extends AppCompatActivity {
 
     DatabaseReference reff, notify, temp, users;
-    int stu_wallet, tutor_wallet;
+    int stu_wallet, tutor_wallet,w;
     TutorNotification notification = new TutorNotification();
     Course course;
     ArrayList<String> key, tutorId, course_name, course_date;
-    String StudentID,cid, tid;
+    String StudentID,cid, tid, temp2;
     ArrayList<Integer> price;
     private FirebaseAuth SID;
 
@@ -44,7 +44,7 @@ public class delete_multiple_courses extends AppCompatActivity {
         course_date = new ArrayList<String>();
         price = new ArrayList<>();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         StudentID = user.getUid();
 
         temp = FirebaseDatabase.getInstance().getReference("Students");
@@ -75,6 +75,7 @@ public class delete_multiple_courses extends AppCompatActivity {
 
                 myArrayList.clear();
                 key.clear();
+                price.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     course = ds.getValue(Course.class);
                     key.add(ds.getKey());
@@ -144,11 +145,29 @@ public class delete_multiple_courses extends AppCompatActivity {
 
 
 
-
+//                                final int p = price.get(i);
+//                                users = FirebaseDatabase.getInstance().getReference("users");
+//
+//                                users.child(tid).addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                        tutor_wallet = Integer.parseInt(dataSnapshot.child("wallet").getValue().toString());
+//                                        String temp = dataSnapshot.child("wallet").getValue().toString();
+//                                        users.child(tid).child("wallet").setValue(tutor_wallet-p+10);
+//                                        Toast.makeText(getApplicationContext(),temp,Toast.LENGTH_LONG).show();
+//                                    }
+//
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                    }
+//                                });
                                 users.child(tid).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         tutor_wallet = Integer.parseInt(dataSnapshot.child("wallet").getValue().toString());
+                                        temp2 = dataSnapshot.child("wallet").getValue().toString();
+                                        final int w = tutor_wallet;
                                     }
 
                                     @Override
@@ -156,7 +175,9 @@ public class delete_multiple_courses extends AppCompatActivity {
 
                                     }
                                 });
-
+                                Toast.makeText(getApplicationContext(),temp2,Toast.LENGTH_SHORT).show();
+                                users.child(tid).child("wallet").setValue(w+10);
+                                //Toast.makeText(getApplicationContext(),temp,Toast.LENGTH_LONG).show();
                                 notification.setCourse_name(course_name.get(i) + " which is on ");
                                 notification.setDate(course_date.get(i));
                                 final DatabaseReference tut = FirebaseDatabase.getInstance().getReference("Tutor Courses").child(cid);
@@ -166,7 +187,7 @@ public class delete_multiple_courses extends AppCompatActivity {
                                 del.setValue(null);
                                 int n = total_stu.get(i)-1;
                                 tut.child("no_of_students").setValue(n);
-                                users.child(tid).child("wallet").setValue(tutor_wallet-price.get(i)+10);
+
                                 stu_wallet+=price.get(i)-10;
                             }
                         }
