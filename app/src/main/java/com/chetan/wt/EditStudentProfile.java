@@ -64,10 +64,10 @@ public class EditStudentProfile extends AppCompatActivity {
                     city.setError( "Address is required!" );
                 else
                     flag++;
-                if( mail.getText().toString().trim().length() == 0 )
-                    mail.setError( "Areas of Interests are required!" );
-                else
-                    flag++;
+//                if( mail.getText().toString().trim().length() == 0 )
+//                    mail.setError( "Areas of Interests are required!" );
+//                else
+//                    flag++;
                 if (flag==4) {
                     reff.child("name").setValue(name.getText().toString().trim());
                     reff.child("qualification").setValue(qualification.getText().toString().trim());
