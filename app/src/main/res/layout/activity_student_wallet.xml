@@ -1,74 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/book"
     android:layout_height="match_parent"
-    android:weightSum="10"
-    android:orientation="vertical"
     tools:context=".StudentWallet">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/rupee" />
+
+    <TextView
+        android:id="@+id/wallet"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:background="@drawable/border12"
-        android:weightSum="10">
+        android:layout_height="70dp"
+        android:layout_toRightOf="@+id/image"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:text="100"
+        android:textColor="#fff"
+        android:textSize="50sp" />
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:background="@android:drawable/ic_menu_revert" />
-
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:padding="5dp"
-            android:text="My Wallet"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="46dp"
-            android:layout_gravity="center"
-            android:layout_weight="2.5"
-            app:srcCompat="@drawable/course" />
-
-    </LinearLayout>
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wallet"
+        android:layout_marginLeft="20dp"
+        android:text="Wallet Balance"
+        android:textColor="#fff" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="Current Balance:"
-            android:textAlignment="textEnd"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/money"
+        android:inputType="number"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView4"
+        android:layout_height="50dp"
+        android:visibility="gone"
+    />
 
-        <TextView
-            android:id="@+id/wallet"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/addMoney"
+        android:background="@drawable/buttonstyle"
+        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/money"
+        android:text="Add Money" />
 
 
-</LinearLayout>
+</RelativeLayout>
